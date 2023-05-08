@@ -1,18 +1,18 @@
 # FeedForward-Neural-Network
 
-##Abstract
+## Abstract
 
 In this assignment, we will be performing feed-forward neural networks in pytorch. The first part of the assignment is using the neural network for curve fitting a set of data. The second part of the assignment is classifying digits from the MNIST dataset using the neural network. We will be comparing the results with other types of classification systems like LSTM, SVD, and DTC. 
 
-##Introduction
+## Introduction
 
 The structure of the neural network allows lots of freedom in the variables that it requires. The assignment introduces the process of building this type of neural network. For the first part of the assignment, I built a neural network that can curve fit a set of data points with different scenarios. Second, I designed another neural network to classify the MNIST data set and reduce the dimensionality by PCA for 20 modes. Afterward, we will compare the results with other types of classifiers like LSTM, SVD, and DTC. 
 
-##Theoretical Background
+## Theoretical Background
 
 The feedforward neural network is a process in which we input a set of values into layers of neurons and the input changes depending on the functions and changes of weights to create our desired output. What we want is for the input to go through the layers of hidden layers so that the output meets our goals. The way to change the input is to have a layer that has an activation function. We can also change the number of neurons in each layer. Afterward, we can set up the learning rate of the neural network. The learning rate acts like the stepsize of the neural network. If we are dealing with a large amount of data, then setting up a batch size of the training and testing loaders can help with the speed of the neural network. With all these variables, the ability to test and build the neural network takes time and patients so that we can reach the goals.
 
-##Algorithm, Implementation, and Development
+## Algorithm, Implementation, and Development
 
 To create the architecture of the neural network, we must set the number of layers of the neural network. For the first part, we have three layers of the feedforward neural network. Each layer is set as linear. The neuron sequence is 1 to 10 to 5 to 1. The activation function for the first two layers is the ReLU function. Then, the last layer is a linear activation function.
 
@@ -28,13 +28,13 @@ The number of epochs is set to 5 for the training portion of the neural network.
 
 The assignment asks us to compare the resulting outputs for the MNIST feedforward neural network with LSTM, SVD, and DTC. The SVD and DTC are similar to homework assignment 3 where we compare classifiers. Therefore, the code is similar to the code from that assignment. The LSTM is a different type of neural network where we use the LSTM code in the neural network architecture. 
 
-##Computational Results
+## Computational Results
 
 From Figure 1, the training data vs the model predictions show that the model slowly transforms from a linear near 0 to a linear line that matches the training data. Therefore, the loss of the training data is around 5 and the testing data is around 33. However, the model prediction is not that great in fitting the testing data. For comparison, in homework 1, we designed a similar curve fit using the polyfit function. The least-square error from that assignment was 2.24 for the training data and 3.49 for the testing data. The training data is similar in value and may be decreased in our neural network if we would increase the number of epochs since the graphs show that the curve is slowly fitting the dataset. However, the testing least square error is shown to have a huge difference in value. The reason is that the model is slowly overfitting the training set but does not account for the testing set. In Figure 2, we can see the testing and training loss for the entire epoch. We can see a similar result with the training model that takes in the first and last 10 data sets as the training data and the middle 10 as the testing data.  The least-square error after 1000 epochs is around 3 for the training set and 7.87 for the testing set. Compared with the first homework, the first homework assignment has around 2 for the training set and 3 for the testing set if we account for the linear function in the homework assignment. In Figure 3, we can see the model being formed similar to Figure 1.  Figure 4 shows every 10 losses for every 10 epoch steps. 
 
 Taking a look at the next part of the assignment, we can see that the neural network for the MNIST classifier shows the result of decreasing the features with the 20 PCA modes. After ten epochs, the accuracy score of the classifier for the feedforward neural network is around **93%**. Comparing it to the LSTM neural network, we can see that the accuracy score is **96.57%**. The accuracy score for the other two classifiers, SVD and DTC, is **99%** and **85%**. We can see that if we wanted to reduce the dimensionality of the data then it is better to use the SVD and LSTM classifiers than the DTC and FFNN.  
 
-##Conclusion
+## Conclusion
 
 The resulting accuracy scores and loss show that the feedforward neural network is better when we get more data. For example, the neural network does not perform well when given a smaller dataset while increasing the number of data points increases the accuracy of the neural network. 
 
