@@ -80,6 +80,8 @@ criterion = nn.MSELoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.01)
 ```
 
+**Figure 5**: The neural network architecture of the curve fitting model. Includes the optimizer and loss functions.
+
 Taking a look at the next part of the assignment, we can see that the neural network for the MNIST classifier shows the result of decreasing the features with the 20 PCA modes. In Figure 6, we can see the neural architecture code with the optimizer and loss functions. After ten epochs, the accuracy score of the classifier for the feedforward neural network is around **93%**. Comparing it to the LSTM neural network, we can see that the accuracy score is **96.57%**. The accuracy score for the other two classifiers, SVD and DTC, is **99%** and **85%**. We can see that if we wanted to reduce the dimensionality of the data then it is better to use the SVD and LSTM classifiers than the DTC and FFNN.  
 
 ```python
