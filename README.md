@@ -30,9 +30,83 @@ The assignment asks us to compare the resulting outputs for the MNIST feedforwar
 
 ## Computational Results
 
-From Figure 1, the training data vs the model predictions show that the model slowly transforms from a linear near 0 to a linear line that matches the training data. Therefore, the loss of the training data is around 5 and the testing data is around 33. However, the model prediction is not that great in fitting the testing data. For comparison, in homework 1, we designed a similar curve fit using the polyfit function. The least-square error from that assignment was 2.24 for the training data and 3.49 for the testing data. The training data is similar in value and may be decreased in our neural network if we would increase the number of epochs since the graphs show that the curve is slowly fitting the dataset. However, the testing least square error is shown to have a huge difference in value. The reason is that the model is slowly overfitting the training set but does not account for the testing set. In Figure 2, we can see the testing and training loss for the entire epoch. We can see a similar result with the training model that takes in the first and last 10 data sets as the training data and the middle 10 as the testing data.  The least-square error after 1000 epochs is around 3 for the training set and 7.87 for the testing set. Compared with the first homework, the first homework assignment has around 2 for the training set and 3 for the testing set if we account for the linear function in the homework assignment. In Figure 3, we can see the model being formed similar to Figure 1.  Figure 4 shows every 10 losses for every 10 epoch steps. 
+From Figure 1, the training data vs the model predictions show that the model slowly transforms from a linear near 0 to a linear line that matches the training data. Therefore, the loss of the training data is around 5 and the testing data is around 33. However, the model prediction is not that great in fitting the testing data. For comparison, in homework 1, we designed a similar curve fit using the polyfit function. The least-square error from that assignment was 2.24 for the training data and 3.49 for the testing data. The training data is similar in value and may be decreased in our neural network if we would increase the number of epochs since the graphs show that the curve is slowly fitting the dataset. However, the testing least square error is shown to have a huge difference in value. The reason is that the model is slowly overfitting the training set but does not account for the testing set. In Figure 2, we can see the testing and training loss for the entire epoch. We can see a similar result with the training model that takes in the first and last 10 data sets as the training data and the middle 10 as the testing data.  The least-square error after 1000 epochs is around 3 for the training set and 7.87 for the testing set. Compared with the first homework, the first homework assignment has around 2 for the training set and 3 for the testing set if we account for the linear function in the homework assignment. In Figure 3, we can see the model being formed similar to Figure 1.  Figure 4 shows every 10 losses for every 10 epoch steps.
+In Figure 5, we can see the coding for the neural network architecture of the curve fitting model. 
 
-Taking a look at the next part of the assignment, we can see that the neural network for the MNIST classifier shows the result of decreasing the features with the 20 PCA modes. After ten epochs, the accuracy score of the classifier for the feedforward neural network is around **93%**. Comparing it to the LSTM neural network, we can see that the accuracy score is **96.57%**. The accuracy score for the other two classifiers, SVD and DTC, is **99%** and **85%**. We can see that if we wanted to reduce the dimensionality of the data then it is better to use the SVD and LSTM classifiers than the DTC and FFNN.  
+![Figure 1](https://github.com/SamQLuong/FeedForward-Neural-Network/blob/main/epoch10_20.png)
+![Figure 1](https://github.com/SamQLuong/FeedForward-Neural-Network/blob/main/epoch250_20.png)
+![Figure 1](https://github.com/SamQLuong/FeedForward-Neural-Network/blob/main/epoch500_20.png)
+![Figure 1](https://github.com/SamQLuong/FeedForward-Neural-Network/blob/main/epoch750_20.png)
+![Figure 1](https://github.com/SamQLuong/FeedForward-Neural-Network/blob/main/epoch1000_20.png)
+
+**Figure 1**: The figures show the model updating for every 250 epoch. The figure also shows the training loss and testing loss
+
+![Figure 2](https://github.com/SamQLuong/FeedForward-Neural-Network/blob/main/epochLoss_20.png)
+
+**Figure 2**: The graph shows the loss of the training and testing for every 10 epoch until it reaches 1000. The loss is also in terms of every 10 loss. 
+
+![Figure 3](https://github.com/SamQLuong/FeedForward-Neural-Network/blob/main/epoch10_1010.png)
+![Figure 3](https://github.com/SamQLuong/FeedForward-Neural-Network/blob/main/epoch250_1010.png)
+![Figure 3](https://github.com/SamQLuong/FeedForward-Neural-Network/blob/main/epoch500_1010.png)
+![Figure 3](https://github.com/SamQLuong/FeedForward-Neural-Network/blob/main/epoch750_1010.png)
+![Figure 3](https://github.com/SamQLuong/FeedForward-Neural-Network/blob/main/epoch1000_1010.png)
+
+**Figure 3**: The figures show the model updating for every 250 epoch. The figure also shows the training loss and testing loss
+
+![Figure 4](https://github.com/SamQLuong/FeedForward-Neural-Network/blob/main/epochLoss_1010.png)
+
+**Figure 4**: The graph shows the loss of the training and testing for every 10 epoch until it reaches 1000. The loss is also in terms of every 10 loss.
+
+```python
+# define the neural network architecture
+class Net(nn.Module):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.fc1 = nn.Linear(1, 10)  # input layer to hidden layer 1
+        self.fc2 = nn.Linear(10, 5)  # hidden layer 1 to hidden layer 2
+        self.fc3 = nn.Linear(5, 1)   # hidden layer 2 to output layer
+
+    def forward(self, x):
+        x = torch.relu(self.fc1(x))
+        x = torch.relu(self.fc2(x))
+        x = self.fc3(x)
+        return x
+
+# create the neural network model
+model = Net()
+
+# define the loss function and optimizer
+criterion = nn.MSELoss()
+optimizer = torch.optim.Adam(model.parameters(), lr=0.01)
+```
+
+Taking a look at the next part of the assignment, we can see that the neural network for the MNIST classifier shows the result of decreasing the features with the 20 PCA modes. In Figure 6, we can see the neural architecture code with the optimizer and loss functions. After ten epochs, the accuracy score of the classifier for the feedforward neural network is around **93%**. Comparing it to the LSTM neural network, we can see that the accuracy score is **96.57%**. The accuracy score for the other two classifiers, SVD and DTC, is **99%** and **85%**. We can see that if we wanted to reduce the dimensionality of the data then it is better to use the SVD and LSTM classifiers than the DTC and FFNN.  
+
+```python
+# Define neural network architecture
+class Net2(nn.Module):
+    def __init__(self):
+        super(Net2, self).__init__()
+        self.fc1 = nn.Linear(20, 128)
+        self.fc2 = nn.Linear(128, 64)
+        self.fc3 = nn.Linear(64, 10)
+
+    def forward(self, x):
+        x = x.view(-1, 20) # flatten the input image
+        x = torch.relu(self.fc1(x))
+        x = torch.relu(self.fc2(x))
+        x = self.fc3(x)
+        return x
+
+# Instantiate neural network
+net = Net2()
+
+# Define loss function and optimizer
+criterion = nn.CrossEntropyLoss()
+optimizer = torch.optim.SGD(net.parameters(), lr=0.01)
+```
+
+**Figure 6**: The neural network architecture for the FFNN coding with loss and optimizer functions.
 
 ## Conclusion
 
